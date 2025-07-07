@@ -1,31 +1,34 @@
 const express = require("express");
 const server = express();
 
+server.use(express.json());
 
-// http://localhost:3000/hello?nome=Felipe&idade=21
-// query params = ?nome=felipe&idade=21
-server.get("/hello", (req, res) => {
-    const {nome, idade} = req.query;
-    
-    return res.json({
-        tittle: "Hello Word",
-        message: `Olá ${nome} tudo bem com voce?`,
-        idade: idade
-    });
+let customers = [
+    { id: 1, name: "Dev Samurai", site: "http://devsamurai.com.br" },
+    { id: 2, name: "Google", site: "http://google.com" },
+    { id: 3, name: "UOL", site: "http://uol.com.br"}
+];
+
+server.get("/customers", (req, res) => {
+    return res.json(customers);
 });
 
+server.get("/customers/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const customer = customers.find(item => item.id === id);
+    const status = customer ? 200 : 404;
 
-
-// http://localhost:3000/hello/felipe
-// Route params = /hello/:nome 
-
-server.get("/hello/:nome/:idade", (req, res) => {
-    const {nome, idade} = req.params;
-
-    return res.json({
-        title: "Hello World",
-        message: `Olá ${nome} tudo bem?`
-    });
+    return res.status(status).json(customer);
 });
 
-server.listen(3000);  
+server.post("/customers", (req, res) => {
+    const {name, site} = req.body;
+    const id = customers[customers.length - 1].id + 1;
+
+    const newCustomer = {id, name, site};
+    customers.push(newCustomer);
+
+    return res.status(201).json(newCustomer);
+});
+
+server.listen(3000);
