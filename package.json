@@ -1,0 +1,12 @@
+{
+  "name": "curso-dominando-nodeJS",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
+  }
+}
