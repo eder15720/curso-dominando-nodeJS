@@ -18,6 +18,8 @@ server.get("/customers/:id", (req, res) => {
     const customer = customers.find(item => item.id === id);
     const status = customer ? 200 : 404;
 
+    console.log("GET :: /customers/:id ", JSON.stringify(customer));
+
     return res.status(status).json(customer);
 });
 
@@ -27,6 +29,8 @@ server.post("/customers", (req, res) => {
 
     const newCustomer = {id, name, site};
     customers.push(newCustomer);
+
+    console.log("GET :: /customers/:id ", JSON.stringify(newCustomer));
 
     return res.status(201).json(newCustomer);
 });
