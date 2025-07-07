@@ -7,7 +7,7 @@ let customers = [
 class CustomersController {
     
     // Listagem dos cutomers
-    index(req, res) {
+    all(req, res) {
         return res.json(customers);
     }
 
